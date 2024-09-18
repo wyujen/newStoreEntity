@@ -1,0 +1,9 @@
+import * as fromGroup from './group/group.reducer';
+import * as fromPurchuserOrder from './purchuserOrder/purchuserOrder.reducer';
+import * as fromProcedure from './procedure/procedure.reducer';
+import * as fromSalesOrder from './salesOrder/salesOrder.reducer';
+import * as fromMaterial from './material/material.reducer';
+import * as fromProduct from './product/product.reducer';
+import * as fromInventory from './inventory/inventory.reducer';
+import * as fromInventoryRecipt from './inventoryRecipt/inventoryRecipt.reducer';
+import * as fromBillOfMaterials from './billOfMaterials/billOfMaterials.reducer';

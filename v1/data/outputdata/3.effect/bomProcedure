@@ -1,0 +1,68 @@
+import { Injectable } from '@angular/core';
+import { WebSocketService } from '../service/web-socket.service';
+import { map } from 'rxjs';
+import { createEffect, ofType, DefaultActionMap } from 'mycena-store';
+import { ActionMap, CreateBomProcedure, DeleteBomProcedure, UpdateBomProcedure } from '@yaotai/bomProcedure/bomProcedure.actions';
+import { Actions, FeatureKeys } from '@yaotai/frontend';
+export interface ResMessage {
+  status: string;
+  info: any;
+}
+
+@Injectable()
+export class BomProcedureEffects {
+  constructor(private _webSocketService: WebSocketService) { }
+
+  test$ = createEffect(
+    () =>
+      Actions.pipe(
+        ofType(ActionMap.TestBomProcedure),
+        map((event) => { })
+      ),
+    { dispatch: false }
+  );
+
+  init$ = createEffect(
+    () =>
+      Actions.pipe(
+        ofType(DefaultActionMap.SystemInitiate),
+        map(() => this._webSocketService.read(FeatureKeys.bomProcedure)),
+      ),
+    { dispatch: false }
+  );
+
+  create$ = createEffect(
+    () => Actions.pipe(
+      ofType(ActionMap.CreateBomProcedure),
+      map((event: CreateBomProcedure) => this._webSocketService.create(FeatureKeys.bomProcedure, event.payload)),
+    ),
+    { dispatch: false }
+  );
+
+  read$ = createEffect(
+    () =>
+      Actions.pipe(
+        ofType(ActionMap.ReadBomProcedure),
+        map(() => this._webSocketService.read(FeatureKeys.bomProcedure))
+      ),
+    { dispatch: false }
+  );
+
+  update$ = createEffect(
+    () =>
+      Actions.pipe(
+        ofType(ActionMap.UpdateBomProcedure),
+        map((event: UpdateBomProcedure) => this._webSocketService.update(FeatureKeys.bomProcedure, event.payload))
+      ),
+    { dispatch: false }
+  );
+
+  delete$ = createEffect(
+    () =>
+      Actions.pipe(
+        ofType(ActionMap.DeleteBomProcedure),
+        map((event: DeleteBomProcedure) => this._webSocketService.delete(FeatureKeys.bomProcedure, event.payload))
+      ),
+    { dispatch: false }
+  );
+}
