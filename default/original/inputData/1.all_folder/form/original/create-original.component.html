@@ -1,0 +1,38 @@
+<div class="dialog-bg">
+    <div class="toolbar">
+        <div class="toolbar-title">建立工序</div>
+    </div>
+    <div class="container" [formGroup]="originalForm">
+        <div class="list-content">
+            <div class="input-form-container">
+
+                <label for="type" class="form-label-two">
+                    <span>類</span>
+                    <span>別</span>
+                </label>
+                <select class="input-edit" formControlName="type" id="type">
+                    <option value="INHOUSE">自制</option>
+                    <option value="MANUFACTURING">加工</option>
+                    <option value="VERIFY">檢查</option>
+                </select>
+                <div class="input-form-container">
+                    <label for="name" class="form-label-two">
+                        <span>名</span>
+                        <span>稱</span>
+                    </label>
+                    <input type="string" formControlName="name" id="name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <button class="cancel-btn" (click)="close()">
+            <span>取</span>
+            <span>消</span>
+        </button>
+        <button class="save-btn" (click)="save()" [disabled]="originalForm.invalid">
+            <span>儲</span>
+            <span>存</span>
+        </button>
+    </div>
+</div>

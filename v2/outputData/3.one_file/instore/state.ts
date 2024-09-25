@@ -1,9 +1,0 @@
-group: fromGroup.GroupState;
-purchuserOrder: fromPurchuserOrder.PurchuserOrderState;
-procedure: fromProcedure.ProcedureState;
-salesOrder: fromSalesOrder.SalesOrderState;
-material: fromMaterial.MaterialState;
-product: fromProduct.ProductState;
-inventory: fromInventory.InventoryState;
-inventoryRecipt: fromInventoryRecipt.InventoryReciptState;
-billOfMaterials: fromBillOfMaterials.BillOfMaterialsState;

@@ -1,9 +1,0 @@
-import { Group } from './group/group.model';
-import { PurchuserOrder } from './purchuserOrder/purchuserOrder.model';
-import { Procedure } from './procedure/procedure.model';
-import { SalesOrder } from './salesOrder/salesOrder.model';
-import { Material } from './material/material.model';
-import { Product } from './product/product.model';
-import { Inventory } from './inventory/inventory.model';
-import { InventoryRecipt } from './inventoryRecipt/inventoryRecipt.model';
-import { BillOfMaterials } from './billOfMaterials/billOfMaterials.model';

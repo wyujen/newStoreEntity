@@ -1,0 +1,2 @@
+billOfMaterials: fromBillOfMaterials.BillOfMaterialsState;
+inventoryReceipt: fromInventoryReceipt.InventoryReceiptState;

@@ -1,0 +1,2 @@
+billOfMaterials: fromBillOfMaterials.FeatureKey,
+inventoryReceipt: fromInventoryReceipt.FeatureKey,
