@@ -1,4 +1,4 @@
-<ng-container *ngIf="!">
+<ng-container>
     <input type="text" matInput formControlName="targetId" [matAutocomplete]="targetAuto">
     <mat-autocomplete #targetAuto="matAutocomplete" [displayWith]="displayWithTarget">
         <mat-option *ngFor="let target of filteredTargetList | async" [value]="target.id">
