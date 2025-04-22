@@ -1,1 +1,2 @@
-UpdateTarget: '[Target] Update Target',
+ReadTargetDatail: '[Target] Read Target Detail',
+

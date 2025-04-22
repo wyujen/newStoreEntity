@@ -1,0 +1,13 @@
+<div class="input-col">
+    <div class="lg-form-container">
+        <label for="target" class="form-label"><span class="req">*</span>target名稱</label>
+        <ng-container>
+            <input type="search" matInput formControlName="targetId" [matAutocomplete]="targetAuto">
+            <mat-autocomplete #targetAuto="matAutocomplete" [displayWith]="displayWithTarget()">
+                <mat-option *ngFor="let target of targetFilteredList()" [value]="target.id">
+                    {{ target?.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </ng-container>
+    </div>
+</div>

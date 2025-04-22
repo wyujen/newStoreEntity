@@ -1,0 +1,107 @@
+<div class="upload-file-create-section">
+    <!-- <button (click)="test()">test</button> -->
+    <div class="upload-file-function-wrap">
+        <div class="dialig-bottom">
+            <button class="action-btn" (click)="uploadInput.click()">
+                選擇檔案
+            </button>
+            <input type="file" #uploadInput placeholder="Upload file" accept=".xlsx,.xls" hidden
+                (change)="onUpload(uploadInput)">
+
+            <a class="action-btn" style="text-decoration: none" href='assets/example-xlsx/台電人員上傳範例.xlsx' download>
+                <span>下載範例</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="empty-info" *ngIf="isInit">
+        請上傳承攬商資料
+    </div>
+    <div class="table-container upload-table-review-container">
+        <div class="table-main-container" *ngIf="!isInit">
+            <div class="table-content">
+                <div class="table-header">
+                    <div class="table-list">
+                        <div class="table-item">
+                            <div class="contractor-name">承攬商名稱(簡稱)</div>
+                            <div class="contractor-name">公司名稱(全名)</div>
+                            <div class="contractor-name">統編</div>
+                            <div class="contractor-name">負責人</div>
+                            <div class="contractor-name">聯絡人</div>
+                            <div class="contractor-phone">聯絡人電話</div>
+                            <div class="contractor-phone">公司電話</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="table-list">
+                        <div class="table-item" *ngFor="let contractorFG of previewFormArray.controls">
+                            <div class="contractor-name">
+                                <ng-container *ngIf="contractorFG.get('nikename').valid">
+                                    {{ contractorFG.get('nikename')?.value }}
+                                </ng-container>
+                                <!-- <span class="error-text" *ngIf="contractorFG.get('name')?.hasError('required')">必填</span> -->
+                            </div>
+                            <div class="contractor-name">
+                                <ng-container *ngIf="contractorFG.get('name').valid">
+                                    {{ contractorFG.get('name')?.value }}
+                                </ng-container>
+                                <span class="error-text"
+                                    *ngIf="contractorFG.get('name')?.hasError('required')">必填</span>
+                            </div>
+
+                            <div class="contractor-id">
+                                <ng-container *ngIf="contractorFG.get('id').valid">
+                                    {{ contractorFG.get('id')?.value }}
+                                </ng-container>
+                                <span class="error-text" *ngIf="contractorFG.get('id')?.hasError('required')">必填</span>
+                                <span class="error-text"
+                                    *ngIf="!contractorFG.get('id')?.hasError('required') && contractorFG.get('id')?.hasError('invalidTaiwanVAT')">
+                                    請輸入正確統編格式
+                                </span>
+                            </div>
+
+                            <div class="contractor-name">
+                                <ng-container *ngIf="contractorFG.get('personInCharge').valid">
+                                    {{ contractorFG.get('personInCharge')?.value }}
+                                </ng-container>
+                                <!-- <span class="error-text"
+                                    *ngIf="contractorFG.get('name')?.hasError('required')">必填</span> -->
+                            </div>
+                            <div class="contractor-name">
+                                <ng-container *ngIf="contractorFG.get('contactorName').valid">
+                                    {{ contractorFG.get('contactorName')?.value }}
+                                </ng-container>
+                                <!-- <span class="error-text"
+                                    *ngIf="contractorFG.get('name')?.hasError('required')">必填</span> -->
+                            </div>
+
+                            <div class="contractor-phone">
+                                <ng-container *ngIf="contractorFG.get('contactorPhone').valid">
+                                    {{contractorFG.get('contactorPhone')?.value}}
+                                </ng-container>
+                            </div>
+                            <div class="contractor-phone">
+                                <ng-container *ngIf="contractorFG.get('phone').valid">
+                                    {{contractorFG.get('phone')?.value}}
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="upload-file-function-wrap">
+            <div class="dialig-bottom">
+                <button class="action-btn"
+                    [ngClass]="{ 'action-btn-disable':previewFormArray.length==0 || previewFormArray.invalid}"
+                    [disabled]="previewFormArray.length==0 || previewFormArray.invalid" (click)="sumbit()">
+                    新增
+                </button>
+                <button class="action-btn" (click)="popupS.closePopupLevel1()">
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

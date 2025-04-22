@@ -1,0 +1,92 @@
+@use '../../../../../../assets/_custom-style/table-with-search';
+@import '../../../../../../assets/_custom-style/variables';
+
+
+.dialig-bottom {
+  height: 64px;
+  padding: 0 8px;
+  border-top: 1px solid map-get($main-colours, bright-grey);
+  @include flexCentre(row, flex-end, center);
+
+  .action-btn {
+    @include button(34px, auto, map-get($main-colours, white), map-get($main-colours, primary), map-get($font-sizes, body1));
+
+    &.action-btn-disable {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.empty-info {
+  @include flexCentre(row, center, center);
+  font-size: map-get($font-sizes, headline6);
+  height: 640px;
+  margin-bottom: 80px;
+}
+
+.table-container {
+  &.upload-table-review-container {
+    // border: 1px red solid;
+  }
+
+  .table-main-container {
+    .table-content {
+
+      .table-header,
+      .table-body {
+        .table-list {
+          .table-item {
+            font-size: map-get($font-sizes, body3);
+
+            .contractor-name,
+            .contractor-departmentId,
+            .contractor-division,
+            .contractor-section,
+            .contractor-team,
+            .contractor-unit,
+            .contractor-ismg {
+              flex: 1;
+              margin-left: 6px;
+            }
+
+            .contractor-id,
+            .contractor-phone,
+            .contractor-mobile {
+              flex: 2;
+              margin-left: 6px;
+            }
+            .contractor-description,
+            .contractor-email {
+              flex: 3;
+              margin-left: 6px;
+            }
+          }
+        }
+      }
+
+      .table-body {
+        .table-list {
+          min-height: 640px;
+          max-height: calc(100vh - 256px);
+
+          .table-item {
+            >div {
+              &::before {
+                content: "\00a0 \00a0 ";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.error-text {
+  color: #0262ff
+}
+
+
+.custom-snackbar {
+  white-space: pre-line; /* 這樣可以支援文字中的換行符號 */
+}

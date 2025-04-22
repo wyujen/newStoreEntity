@@ -1,0 +1,31 @@
+<div class="toolwrap" [formGroup]="searchForm">
+    <select id="" formControlName="deleted" (change)="search()">
+        <option [ngValue]="false">一般列表</option>
+        <option [ngValue]="true">刪除列表</option>
+    </select>
+    <div class="selectbar">
+        <div class="search-wrap">
+            <label for="search" class="search-title">關鍵字搜尋</label>
+            <div class="searchbar">
+                <input type="search" formControlName="keyword">
+                <button class="search-btn" (click)="search()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path id="ic_search_24px"
+                            d="M20.153,18.094H19.069l-.384-.37a8.933,8.933,0,1,0-.961.961l.37.384v1.084L24.955,27,27,24.955Zm-8.233,0a6.175,6.175,0,1,1,6.175-6.175A6.167,6.167,0,0,1,11.919,18.094Z"
+                            transform="translate(-3 -3)" fill="" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="list-bg" [ngClass]="{ delete: searchForm.get('deleted')?.value }">
+
+
+
+
+    <div class="list-content" (click)="detail(target)" *ngFor="let target of filteredList()">

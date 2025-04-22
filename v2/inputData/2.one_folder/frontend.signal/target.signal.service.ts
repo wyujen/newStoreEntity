@@ -15,14 +15,24 @@ export class TargetSignalService implements OnDestroy {
 
     private _totalTargetListWS = signal<TargetRelation[]>([]);
     private _totalTargetRecordWS = signal<Record<string, TargetRelation>>({});
+    private _targetId = signal<string>('');
 
 
     totalTargetRecordSignal = computed(() => this._totalTargetRecordWS());
     totalTargetListSignal = computed(() => this._totalTargetListWS());
+    targetSignal = computed(()=>{
+        const targetRecord = this._totalTargetRecordWS();
+        const target = targetRecord[this._targetId()] as TargetRelation || null
+        return target
+    })
     constructor(
         private _zone: NgZone
     ) {
         this.subscribeStore();
+    }
+
+    setTargetId(id: string) {
+        this._targetId.set(id)
     }
 
     private subscribeStore() {

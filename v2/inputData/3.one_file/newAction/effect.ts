@@ -1,8 +1,10 @@
-update$ = createEffect(
+
+readDetail$ = createEffect(
     () =>
         Actions.pipe(
-            ofType(ActionMap.UpdateTarget),
-            map((event: UpdateTarget) => this._webSocketService.update('UpdateTarget', event.payload))
+            ofType(ActionMap.ReadTargetDatail),
+            map((event: ReadTargetDetail) => this._webSocketService.update('targetDetail', event.payload))
         ),
     { dispatch: false }
 );
+

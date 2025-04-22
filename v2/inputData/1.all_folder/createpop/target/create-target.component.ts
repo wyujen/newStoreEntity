@@ -7,6 +7,8 @@ import { addToSubscription } from '../../../../share/share.function';
 import { CreateTarget, UpdateTarget } from '@yaotai/target/target.actions';
 import { Store } from '@yaotai/frontend';
 import { Target } from '@yaotai/target/target.model';
+import { GroupSignalService } from 'apps/frontend/src/app/service/signal/group.signal.service';
+
 
 type StreamName = 'lastPathUrl';
 
@@ -15,7 +17,7 @@ type StreamName = 'lastPathUrl';
   templateUrl: './create-target.component.html',
   styleUrls: ['./create-target.component.scss'],
 })
-export class CreateTargetComponent {
+export class CreateTargetComponent implements OnInit, OnDestroy {
 
   stream: Record<StreamName, Observable<any> | undefined> = {
     lastPathUrl: undefined,
@@ -26,37 +28,49 @@ export class CreateTargetComponent {
   originalTarget: Target | undefined
 
 
-  constructor(private _cdr: ChangeDetectorRef, private _popupCS: PopupComponentStore, private _fb: FormBuilder, private _routerCS: RouterComponentStore) {
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _popupCS: PopupComponentStore,
+    private _fb: FormBuilder,
+    private _routerCS: RouterComponentStore,
+    public groupSS: GroupSignalService,
+  ) {
     this.targetForm = this._fb.group({
       type: [''],
       name: [''],
+      groupId: [''],
     });
   }
   ngOnInit(): void {
-    this._popupCS.selectPayload$.subscribe((payload) => {
+    const payloadSuber = this._popupCS.selectPayload$.subscribe((payload) => {
       this.originalTarget = payload,
         this.targetForm.patchValue(payload)
       this._cdr.detectChanges()
     });
+    addToSubscription(this.subscription, payloadSuber);
+
   }
 
   save() {
-    const targetData = {
-      groupId: 'group-ba9795d5-6304-43bd-8abc-5460b93e58da',
+    const formdata = {
       type: this.targetForm.get('type')?.value,
       name: this.targetForm.get('name')?.value,
     }
     if (!this.originalTarget) {
-      console.log('create-->', targetData)
-      Store.dispatch(new CreateTarget([targetData]));
+      const createForm = {
+        ...formdata,
+        groupId: this.groupSS.yaoTaiSignal().id,
+      }
+      console.log('create-->', createForm)
+      Store.dispatch(new CreateTarget([createForm]));
 
     } else {
       const updateData = {
-        ...targetData,
+        ...formdata,
         id: this.originalTarget.id,
       }
       Store.dispatch(new UpdateTarget([updateData]));
-      console.log('update-->', targetData)
+      console.log('update-->', updateData)
 
     }
     this._popupCS.closeContentLevel1();
@@ -64,6 +78,9 @@ export class CreateTargetComponent {
 
   close() {
     this._popupCS.closeContentLevel1();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -1,0 +1,311 @@
+<div class="lg-dialog-bg">
+    <div class="toolbar">
+        <div class="toolbar-title">建立專案生產制令</div>
+        <!-- <button (click)="test()">gooo</button> -->
+    </div>
+    <div class="container">
+        <div class="container-wrap">
+            <div class="form-container">
+                <form [formGroup]="projectForm">
+                    <div class="input-col">
+                        <div class="lg-form-container">
+                            <label for="salesOrderId" class="form-label"><span class="req">*</span>訂單編號</label>
+                            <select id="salesOrderId" formControlName="salesOrderId" (change)="setCalculateResult()">
+                                <option [value]=null>無</option>
+                                <option
+                                    *ngFor="let salesOrder of this.salesOrderSS.totalSalesOrderListSignal()| filterByPropertyName:'hasnot':'projectId'"
+                                    [value]="salesOrder.id">
+                                    {{ salesOrder.serial }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="lg-form-container">
+                            <label for="contractOrderId" class="form-label">託工編號</label>
+                            <select id="contractOrderId" formControlName="contractOrderId"
+                                (change)="setCalculateResult()">
+                                <option [value]=null>無</option>
+                                <option
+                                    *ngFor="let contractOrder of this.contractOrderSS.totalContractOrderListSignal()| filterByPropertyName:'hasnot':'projectId'"
+                                    [value]="contractOrder.id">
+                                    {{ contractOrder.serial }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="lg-form-container">
+                            <div class="form-label">廠商名稱</div>
+                            <div class="content">{{salesOrderSignal()?._customer?.name|| '-' }}</div>
+                        </div>
+                    </div>
+                    <div class="input-col col-start">
+                        <div class="sm-form-container">
+                            <label for="weight" class="form-label">品番號碼</label>
+                            <div class="content" for="weight">{{ bomSignal()?.name || '-' }}</div>
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label-three">
+                                <span>不</span>
+                                <span>良</span>
+                                <span>率</span>
+                            </label>
+                            <div class="content">{{bomDefectRateSignal()|number:'1.2-2'}}%</div>
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label-two"><span class="req">*</span>沖壓起日</label>
+                            <input id="stampingStartDate" type="date" formControlName="stampingStartDate" />
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label"><span class="req">*</span>沖壓止日</label>
+                            <input id="stampingStartDate" type="date" formControlName="stampingEndDate" />
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label-two"><span class="req">*</span>
+                                <span>納</span>
+                                <span>期</span>
+                            </label>
+                            <input id="stampingStartDate" type="date" formControlName="deliveryDate" />
+                        </div>
+                    </div>
+
+                    <div class="subtitle">原料資訊</div>
+                    <div class="input-col">
+                        <div class="lg-form-container">
+                            <div class="form-label">原料名稱</div>
+                            <div class="content">SPCC 0.4 x 91 x 73</div>
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="sm-form-container">
+                            <div class="form-label-two">
+                                <span>材</span>
+                                <span>質</span>
+                            </div>
+                            <div class="content">{{bomSignal()?._material?.name|| '-' }}</div>
+                        </div>
+
+                        <div class="sm-form-container">
+                            <div class="form-label-two">
+                                <span>比</span>
+                                <span>重</span>
+                            </div>
+                            <div class="content">7.85</div>
+                        </div>
+
+
+                        <div class="sm-form-container">
+                            <div class="form-label-two">
+                                <span>規</span>
+                                <span>格</span>
+                            </div>
+                            <div class="content">{{bomSignal()?._material?.element|| '-' }}</div>
+                        </div>
+                    </div>
+
+                    <div class="input-col col-start">
+                        <div class="sm-form-container">
+                            <div class="form-label">公制長度</div>
+                            <div class="content">1220</div>
+                        </div>
+                        <div class="sm-form-container">
+                            <div class="form-label">公制寬度</div>
+                            <div class="content">2440</div>
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="sm-form-container">
+                            <div class="form-label-two">
+                                <span>備</span>
+                                <span>註</span>
+                            </div>
+                            <div class="content">{{bomSignal()?._material?.remark|| '-' }}</div>
+                        </div>
+                    </div>
+
+
+                    <div class="subtitle">產量資訊</div>
+                    <div class="input-col">
+                        <!-- <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label">訂單數量</label>
+                            <div class="content">
+                                {{salesOrderSignal()?.quantity ?? 0}}
+                            </div>
+                        </div> -->
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label">產品庫存</label>
+                            <div class="content">
+                                {{availableProductStockSignal()}}
+                            </div>
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label">需生產數</label>
+                            <input type="number" formControlName="reqProdQty" (change)="setTaskList()">
+                        </div>
+                    </div>
+                    <div class="input-col col-start">
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label">原料庫存</label>
+                            <div class="content">
+                                {{availableMaterialStockSignal()}}
+                            </div>
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label">可產數量</label>
+                            <div class="content">{{producibleQtySignal()|number:'1.0-0'}}</div>
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="sm-form-container">
+                            <label for="form-label">採購單位</label>
+                            <select name="" id="">
+                                <option value="">條</option>
+                                <option value="">張</option>
+                                <option value="">重量</option>
+                            </select>
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="stampingStartDate" class="form-label">採購數量</label>
+                            <input id="suggPurchQty" type="number" formControlName="suggPurchQty" />
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="" class="form-label">採購總重</label>
+                            <input id="" type="number" formControlName="" />
+                        </div>
+                    </div>
+
+                    <div class="input-col col-start">
+                        <div class="sm-form-container">
+                            <label for="" class="form-label">產品預扣</label>
+                            <input id="" type="number" formControlName="" />
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="" class="form-label">原料預扣</label>
+                            <input id="" type="number" formControlName="" />
+                        </div>
+                    </div>
+
+                    <div class="subtitle">採購單</div>
+                    <div class="input-col checkbox">
+                        <div class="sm-form-container">
+                            <label for="" class="form-label-three"><span class="req">*</span>
+                                <span>採</span>
+                                <span>購</span>
+                                <span>單</span>
+                            </label>
+                            <div class="checkbox-wrap">
+                                <input type="radio">
+                                <div>有</div>
+                            </div>
+                            <div class="checkbox-wrap">
+                                <input type="radio">
+                                <div>無</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="lg-form-container">
+                            <label for="" class="form-label"><span class="req">*</span>廠商名稱</label>
+                            <select id="" formControlName="">
+                                <option>
+                                    廠商名稱
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-col">
+                        <div class="sm-form-container">
+                            <label for="" class="form-label-two"><span class="req">*</span>
+                                <span>納</span>
+                                <span>期</span>
+                            </label>
+                            <input id="" type="date" formControlName="" />
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="" class="form-label">採購總重</label>
+                            <div class="content">
+                                100 kg
+                            </div>
+                        </div>
+                        <div class="sm-form-container">
+                            <label for="" class="form-label-two">
+                                <span>單</span>
+                                <span>價</span>
+                            </label>
+                            <input type="number" formControlName="">
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="sm-form-container">
+                            <label for="" class="form-label-two">
+                                <span>總</span>
+                                <span>價</span>
+                            </label>
+                            <input type="number" formControlName="">
+                        </div>
+                    </div>
+                    <div class="input-col">
+                        <div class="lg-form-container">
+                            <label for="" class="form-label-two">
+                                <span>備</span>
+                                <span>註</span>
+                            </label>
+                            <input type="number" formControlName="">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="side-container">
+                <div class="list-content">
+                    <div class="procedure-bar">
+                        <div>工序項目</div>
+                    </div>
+                    <div class="procedure-group">
+                        <div class="procedure-wrap">
+                            <div class="procedure-detail">
+                                <div class="detail-title">
+                                    <div class="">0.</div>
+                                    <div class="">需生產數</div>
+                                </div>
+                                <div class="">{{this.projectForm?.get('reqProdQty')?.value}}</div>
+                            </div>
+                            <div class="arrow" *ngIf="currentTaskList.length > 0">
+                                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0L5 8L10 0H0Z" fill="" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="procedure-wrap" *ngFor="let task of currentTaskList">
+                            <div class="procedure-detail">
+                                <div class="detail-title">
+                                    <div class="">{{task?.sequence}}.</div>
+                                    <div class="">{{task?.name}}</div>
+                                </div>
+                                <div class="">{{task?.expectOutput}}</div>
+                            </div>
+                            <div class="arrow">
+                                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0L5 8L10 0H0Z" fill="" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="bottom">
+        <button class="cancel-btn" (click)="close()">取消</button>
+        <button class="save-btn" (click)="save()" [disabled]="projectForm.invalid">儲存</button>
+    </div>
+</div>

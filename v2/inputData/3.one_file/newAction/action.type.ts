@@ -1,1 +1,1 @@
-UpdateTarget | 
+ReadTargetDetail | 

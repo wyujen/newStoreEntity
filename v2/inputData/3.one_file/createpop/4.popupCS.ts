@@ -1,0 +1,2 @@
+|
+    'yaotai-create-target'

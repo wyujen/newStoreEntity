@@ -1,0 +1,45 @@
+<div class="list-container">
+  <div class="toolbar">
+    <div class="selectbar">
+      <select>
+        <option>所有target</option>
+      </select>
+      <div class="seachbar">
+        <input type="text" name="" id="">
+        <button class="search-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.031 13.1389L8.77401 9.88192C8.35734 10.1875 7.90047 10.4271 7.40338 10.6007C6.9063 10.7743 6.37727 10.8611 5.8163 10.8611C4.42699 10.8611 3.24623 10.375 2.27401 9.40275C1.30178 8.43053 0.815674 7.24997 0.815674 5.86108C0.815674 4.4722 1.30178 3.29164 2.27401 2.31942C3.24623 1.3472 4.42678 0.861084 5.81567 0.861084C7.20456 0.861084 8.38512 1.3472 9.35734 2.31942C10.3296 3.29164 10.8157 4.4724 10.8157 5.86171C10.8157 6.42268 10.7289 6.95171 10.5553 7.44879C10.3816 7.94588 10.1421 8.40275 9.83651 8.81942L13.1842 12.1671L12.031 13.1389ZM5.81567 9.36108C6.7879 9.36108 7.61429 9.02081 8.29484 8.34025C8.9754 7.6597 9.31567 6.83331 9.31567 5.86108C9.31567 4.88886 8.9754 4.06247 8.29484 3.38192C7.61429 2.70136 6.7879 2.36108 5.81567 2.36108C4.84345 2.36108 4.01706 2.70136 3.33651 3.38192C2.65595 4.06247 2.31567 4.88886 2.31567 5.86108C2.31567 6.83331 2.65595 7.6597 3.33651 8.34025C4.01706 9.02081 4.84345 9.36108 5.81567 9.36108Z" fill="white"/>
+          </svg>            
+        </button>
+      </div>
+    </div>
+    <button class="create-btn " (click)="create()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5.30769 6.69231H0V5.30769H5.30769V0H6.69231V5.30769H12V6.69231H6.69231V12H5.30769V6.69231Z"
+          fill="#447088" />
+      </svg>
+      <div class="btn-font">建立target</div>
+    </button>
+  </div>
+  <div class="list-bg">
+    <div class="list-scroll">
+      <div class="list-body">
+        <div class="list-header">
+          <div class="list-item">id</div>
+          <div class="list-item item-mx"></div>
+          <div class="list-item">最後更新日期</div>
+          <div class="list-item">最後更新時間</div>
+          <div class="list-item item-mx"></div>
+        </div>
+        <div class="list-content" (click)="details(target)" *ngFor="let target of this.targetSS.totalTargetListSignal(); index as i">
+
+          <div class="list-item">{{target?.id ||'-'}}</div>
+          
+          <div class="list-item item-mx"></div>
+          <div class="list-item">{{target?.timestamps | dateOnly }}</div>
+          <div class="list-item">{{target?.timestamps | timeOnly }}</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
