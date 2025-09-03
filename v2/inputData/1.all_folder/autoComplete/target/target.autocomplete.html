@@ -11,3 +11,17 @@
         </ng-container>
     </div>
 </div>
+
+
+
+<!-- no form -->
+
+<ng-container>
+    <input type="search" matInput [(ngModel)]="selectedTargetId"
+        [matAutocomplete]="targetAuto" (input)="setTargetSearchParam()">
+    <mat-autocomplete #targetAuto="matAutocomplete" [displayWith]="displayWithTarget()">
+        <mat-option *ngFor="let target of targetFilteredList()" [value]="target.id">
+            {{ target?.name }}
+        </mat-option>
+    </mat-autocomplete>
+</ng-container>
